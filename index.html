@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="no"> 
+<head>
+<!--
+                             ''
+        ('''' .|''|, '||''|  ||   '''|.
+         `'') ||..||  ||     ||  .|''||
+        `...' `|...  .||.   .||. `|..||.
+-->
+<script type='text/javascript' src='/admin/spjs/jquery-ui-1.8.21/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='/admin/spjs/jquery-ui-1.8.21/ui/jquery-ui.js'></script>
+<script type='text/javascript' src='/admin/spjs/jquery-ui-1.8.21/ui/jquery.ui.core.js'></script>
+<script type='text/javascript' src='/admin/spjs/jquery-ui-1.8.21/ui/jquery.ui.mouse.js'></script>
+<script type='text/javascript' src='/admin/spjs/jquery-ui-1.8.21/ui/jquery.ui.widget.js'></script>
+<script type='text/javascript' src='/admin/spjs/jquery-ui-1.8.21/ui/jquery.ui.draggable.js'></script>
+<script type='text/javascript' src='/admin/spjs/jquery-ui-1.8.21/ui/jquery.ui.droppable.js'></script>
+<script type='text/javascript' src='/admin/spjs.js'></script>
+<script type='text/javascript'>
+<!--
+function tpl_image_edit(pageId, imageId)
+{
+top.showDialog('/templateCommands/image/?pageId='+escape(pageId)+'&imageId='+escape(imageId), 800,600, function() { 
+	top.urlReload();
+});
+}
+// -->
+</script>
+<script type='text/javascript'>
+<!--
+function tpl_editable_edit(pageId, relatedTo, editableName, type, caption, urlParam)
+{
+	top.showDialog('/templateCommands/editable/?pageId='+escape(pageId)+'&editableName='+escape(editableName)+'&relatedTo='+escape(relatedTo)+'&type='+escape(type)+'&caption='+escape(caption)+'&p='+escape(urlParam), 980, 750, function(result) {
+		top.urlReload();
+	});
+	return;
+        if(parent.showPopupX)
+        {
+                parent.showPopupX('/templateCommands/editable/?pageId='+escape(pageId)+'&editableName='+escape(editableName)+'&relatedTo='+escape(relatedTo)+'&type='+escape(type)+'&caption='+escape(caption)+'&p='+escape(urlParam), false, false, function(result) {
+                        location.href = location.href.split('#')[0];
+                });
+        }
+        else
+        {
+                var result = showPopup('/iframe.php?title=Edit&src=/templateCommands/editable/&pageId='+escape(pageId)+'&editableName='+escape(editableName)+'&relatedTo='+escape(relatedTo)+'&type='+escape(type)+'&caption='+escape(caption)+'&p='+escape(urlParam));
+                location.href = location.href.split('#')[0];
+        }
+}
+// -->
+</script>
+
+<style type="text/css">
+	.wordDefinitionContainer {
+		border: 1px solid black;
+		background-color: #ffffff;
+		color: #000000;
+	}
+
+	.wordDefinitionWord {
+		border-bottom: 1px dotted #0000ff;
+		cursor: default;
+	}
+		
+</style>
+<script type="text/javascript" src="/js/swfobject.js"></script>
+<script type="text/javascript" src="/js/imgToFLV.js"></script>
+<script type="text/javascript" src="/js/ajax.js"></script>
+
+<script type="text/javascript">
+	function showDefinition(id, e) {
+		var ow;
+		if (document.getElementById('wordDefinition')) {
+			ow = document.getElementById('wordDefinition');
+		} else {
+			ow = document.createElement('div');
+			ow.className = 'wordDefinitionContainer';
+			ow.id = 'wordDefinition';
+		}
+
+		ow.style.position = 'absolute';
+		ow.style.padding = '10px';
+		ow.innerHTML = '';
+		ow.style.width = '40px';
+		ow.style.height = '10px';
+		ow.style.overflow = 'hidden';
+		ow.style.top = (e.y + document.body.scrollTop) + 'px';
+		ow.style.left = (e.x + document.body.scrollLeft) + 'px';
+		ow.style.display='block';
+		document.body.appendChild(ow);
+		ajaxRequest('/admin/globalSettings/wordDefinitionOutput.php?id=' + id, definitionRecieved);
+	}
+
+	function hideDefinition() {
+		var ow = document.getElementById('wordDefinition');
+		if (ow) ow.style.display='none';
+	}
+
+	function definitionRecieved(definition) {
+		if (definition) {
+			var ow = document.getElementById('wordDefinition');
+			ow.innerHTML = definition;
+			ow.style.width = '';
+			ow.style.height = '';
+		}
+	}
+
+</script>
+<script type='text/javascript' src='/js/escLogin.js'></script>
+<!-- WIPS STOP HEAD ATTACHMENT -->
+
+	<title>Book Norway - nordnorge.com</title>
+	<link rel="stylesheet" type="text/css" href="/sites/n/nordnorge.com/designs/Book_Norway/styles_searchbar.css" />
+	<link rel="stylesheet" type="text/css" id="wips_classes" href="/sites/n/nordnorge.com/designs/Book_Norway/wips_genererte_classer.css" />
+	<link rel="stylesheet" type="text/css" id="texteditor" href="/sites/n/nordnorge.com/designs/Book_Norway/texteditor.css?r=4" />
+	<link rel="stylesheet" type="text/css" id="mainstyle" href="/sites/n/nordnorge.com/designs/Book_Norway/style.css?r=4" />
+	<link rel="stylesheet" type="text/css" href="/sites/n/nordnorge.com/designs/Book_Norway/js/jquery.qtip/jquery.qtip.min.css" />
+	<link rel="stylesheet" type="text/css" href="/sites/n/nordnorge.com/designs/Book_Norway/page.css?r=9" />
+	<link rel="stylesheet" type="text/css" href="/sites/n/nordnorge.com/designs/Book_Norway/menu.css?r=3" />
+	<link rel="stylesheet" type="text/css" id="listmenu-o" href="/sites/n/nordnorge.com/designs/Book_Norway/listmenu_o.css" title="Vertical 'Office'" />
+	<link rel="stylesheet" type="text/css" id="fsmenu-fallback" href="/sites/n/nordnorge.com/designs/Book_Norway/listmenu_fallback.css" />
+	<link rel="stylesheet" type="text/css" id="colorbox_style" href="/sites/n/nordnorge.com/designs/Book_Norway/colorbox.css" />
+
+        <script type="text/javascript" src="/sites/n/nordnorge.com/designs/Book_Norway/js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="/sites/n/nordnorge.com/designs/Book_Norway/js/jquery-ui-1.8.7.custom.min.js"></script>
+        <script type="text/javascript" src="/sites/n/nordnorge.com/designs/Book_Norway/js/jquery.seriacarousel.js"></script>
+	<script type="text/javascript" src="/sites/n/nordnorge.com/designs/Book_Norway/js/jquery.placeholder.1.2.js"></script>
+	<script type="text/javascript" src="/sites/n/nordnorge.com/designs/Book_Norway/js/nordnorge.js"></script>
+	<script type="text/javascript" src="/sites/n/nordnorge.com/designs/Book_Norway/colorbox/colorbox/jquery.colorbox.js"></script>
+	<script type="text/javascript" src="/sites/n/nordnorge.com/designs/Book_Norway/js/google_search_script.js"></script>
+	<script type="text/javascript" src="/js/wips/tipAFriend.js"></script>
+
+	<!--[if ie 7]>
+	<style type="text/css">
+		.RIGHTSECTIONBLOCK .CONTENTS div a { padding:0px 20px 0px 0px; }
+	</style>
+	<![endif]-->
+
+	<style type="text/css">
+		.logo { height:220px; }
+		.top { height: 307px; }
+	</style>
+
+
+
+		
+        <link rel="shortcut icon" href="/sites/n/nordnorge.com/designs/Book_Norway/images/favicon.ico" type="image/ico" />
+        <link rel="icon" href="/sites/n/nordnorge.com/designs/Book_Norway/images/favicon.ico" type="image/ico" />
+        <link rel="SHORTCUT ICON" href="/sites/n/nordnorge.com/designs/Book_Norway/images/favicon.ico" />
+
+	
+	
+	
+
+	<script type="text/javascript">
+		//<![CDATA[
+               var bgImages = new Array();
+bgImages[0] = "/sites/n/nordnorge.com/files/2d3728142cc6f88578335571c2aadcc2.jpg";
+bgImages[1] = "/sites/n/nordnorge.com/files/1b51aaa7e33e814c73ba191c620d9957.jpg";
+bgImages[2] = "/sites/n/nordnorge.com/files/7157bee950054555560db11589a8cc5a.jpg";
+bgImages[3] = "/sites/n/nordnorge.com/files/13edf1801ed16787fcd0c27860582d67.jpg";
+bgImages[4] = "/sites/n/nordnorge.com/files/19c4ff8d2632769e8c6b4b7dd2edaf15.jpg";
+bgImages[5] = "/sites/n/nordnorge.com/files/56372555df06609d0d72949ce57b80a8.jpg";
+bgImages[6] = "/sites/n/nordnorge.com/files/74505c5a49dd8b460af8f44a985d873c.jpg";
+bgImages[7] = "/sites/n/nordnorge.com/files/bc4041f455bb2a9c143f0556393f642a.jpg";
+
+               var bgImageTitles = new Array();
+bgImageTitles[0] = "CH / www.visitnorway.com";
+bgImageTitles[1] = "Trym Ivar Bergsmo / www.nordnorge.com";
+bgImageTitles[2] = "Ole J Liodden / Naturfokus / www.nordnorge.com";
+bgImageTitles[3] = "Bård Løken / www.nordnorge.com";
+bgImageTitles[4] = "CH / www.nordnorge.com";
+bgImageTitles[5] = "Ernat Furuhatt / www.nordnorge.com";
+bgImageTitles[6] = "Marten Bril / www.nordnorge.com";
+bgImageTitles[7] = "Frank Andreassen / www.nordnorge.com";
+
+		//]]>
+	</script>
+
+
+        <script type="text/javascript" src="/sites/n/nordnorge.com/designs/Book_Norway/js/fadingImages.js?r=1355492778"></script>
+
+		
+
+	<script type="text/javascript">
+	(function() {
+		var widget = document.createElement('script'); widget.type = 'text/javascript'; widget.async = true;
+		widget.src = 'http://booking.nordnorge.com/no/multiwidget/searchforms';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(widget, s);
+	})();
+	</script>
+
+</head>
+
+
+<body  style='text-align:left;' class="page_495346069 no">
+
+<!-- Facebook comments -->
+
+      <div id="fb-root"></div>
+      <script type="text/javascript">
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>
+
+<div style='position:absolute;'>
+	<img src="/sites/n/nordnorge.com/designs/Book_Norway/images/transparent.png" id="bg2" style="top:0px; position:fixed; z-index:10; display: none;" alt="" />
+	<img src="/sites/n/nordnorge.com/designs/Book_Norway/images/transparent.png" id="bg1" style="top:0px; position:fixed; z-index:20; display: none;" alt="" />
+</div>
+
+<div style='width:100%; position:absolute; text-align:center;'>
+ 	<div class='main_wrapper'>
+		<div class='top'>
+
+			<a class='logo' href="/no"><img src="/sites/n/nordnorge.com/files/faf8ef127b5131945baf173f7cd43819.png" alt=""  /></a>
+
+			<div class='front_text_top'  style='background-image:url(/sites/n/nordnorge.com/designs/Book_Norway/images/topmeny_logg_inn.png); background-repeat: no-repeat; background-position:top left; width:427px; height:42px; float:right; padding:0px 0px 0px 0px;'>
+				<div style='height:15px; line-height:15px; background-image:url(/sites/n/nordnorge.com/designs/Book_Norway/images/topmeny_logg_inn.png); background-repeat: no-repeat; background-position:top left;'><div id='bgTitle'></div></div>
+
+				<div style='float:left; width:400px; margin:3px 0px 0px 0px;'>topp blokk er tatt vekk</div>
+
+				<div class='flag' >
+					<p>&nbsp;</p>
+					<div style="margin: -2px 0px 0px; text-align: right;">
+<div style="text-align: right; margin-top: 0px;"><a href="/no"><img alt="" src="/sites/n/nordnorge.com/files/703ada0f2fafff93c9be56fbd14dd6d0.png?resize=26x30" /></a><a href="/en"><img alt="" src="/sites/n/nordnorge.com/files/b082009ada40095dfd5add7528a2b909.png?resize=26x30" /></a><a href="/de"><img alt="" src="/sites/n/nordnorge.com/files/7c722b84d46c309e915cb70274ebc8ca.png?resize=26x30" /></a></div>
+<br />Official webpage Northern Norway</div>
+				</div>
+			</div>
+			<div style='clear:both;'></div>
+
+			<div style='width:1042px; height: 75px'><div style='display: inline; display: inline;' id='WIPSELEMENT_TOPMENU'><div class='topmenu'><ul><li id='id412616041'  class='level1item active' ><a title='Nord-Norge'><span>Forsiden</span></a><ul class='level2'><li><a href="/?id=488492455"><span>Alle publiserte artikler</span></a></li><li><a href="/?id=1575904138"><span>Til NO nyhetsbrev</span></a></li><li><a href="/?id=166790336"><span>Til EN nyhetsbrev</span></a></li><li><a href="/?id=977052387"><span>Til DE nyhetsbrev</span></a></li><li><a href="/?id=1473098818"><span>Ikke oversatt - Annonser</span></a></li><li><a href="/?id=588717771"><span>Ikke oversatt - Bildegalleri</span></a></li><li><a href="/?id=1005904050"><span>Ikke oversatt - Brosjyrer</span></a></li><li><a href="/?id=821964894"><span>Til oversetting</span></a></li><li><a href="/?id=290653139"><span>Til godkjenning</span></a></li><li><a href="/booknorway"><span>Book Norway</span></a></li></ul></li>
+<li id='id1449578407' class='level1item'   style="background-image: url(/sites/n/nordnorge.com/files/daeab073b90e4a7dd1680083ea5b0bcf.png)"><a title=' om nord-norge'><span>  om nord-norge</span></a><ul class='level2'><li><a href="/no/midnattssol"><span>Midnattssola</span></a></li><li><a href="/no/nordlys"><span>Nordlyset</span></a></li><li><a href="/no/samisk-kultur"><span>Samisk kultur</span></a></li><li><a href="/no/kystkultur"><span>Kystkultur</span></a></li><li><a href="/no/landskap-klima"><span>Landskapet</span></a></li><li><a href="/no/bilder"><span>Nord-Norge i bilder</span></a></li><li><a href="/no/filmer"><span>Filmer om Nord-Norge</span></a></li><li><a href="/no/nord-norge"><span>Mer om Nord-Norge</span></a></li></ul></li>
+<li id='id1827360755' class='level1item'   style="background-image: url(/sites/n/nordnorge.com/files/bf9638377a849c5d8de674ed4de43ca1.png)"><a title='Aktiviteter - Severdigheter '><span>Aktiviteter - Severdigheter </span></a><ul class='level2'><li><a href="/no/sommeraktiviteter"><span>Sommeraktiviteter</span></a></li><li><a href="/vinter-aktiviteter"><span>Vinteraktiviteter</span></a></li><li><a href="/severdigheter"><span>Severdigheter</span></a></li><li><a href="/no/festival-kultur"><span>Festival og kultur</span></a></li></ul></li>
+<li id='id203593291' class='level1item'   style="background-image: url(/sites/n/nordnorge.com/files/7a3cfa5142b4ac8f64ff8c15b94ff5b8.png)"><a title='overnatting - bespisning'><span>overnatting - bespisning</span></a><ul class='level2'><li><a href="/no/overnatting"><span>overnatting i Nord-Norge</span></a></li><li><a href="/no/overnatting-saerpreg"><span>Overnatting med Særpreg</span></a></li><li><a href="/no/det-nordnorske-kjokken"><span>Det nordnorske Kjøkken</span></a></li></ul></li>
+<li id='id102175426' class='level1item'   style="background-image: url(/sites/n/nordnorge.com/files/5d9ab57dea431158ed109bb291e3a349.png)"><a title='Transport - Reisemål'><span>Transport - Reisemål</span></a><ul class='level2'><li><a href="/no/reise-til-nordnorge"><span>Reise til nord-norge</span></a></li><li><a href="/no/reise-i-nord-norge"><span>Reise i nord-norge</span></a></li><li><a href="/no/reiseforslag"><span>Reiseforslag</span></a></li><li><a href="/no/reisemal-regioner"><span>Reisemål og Regioner</span></a></li></ul></li>
+<li id='id967619161' class='level1item'   style="background-image: url(/sites/n/nordnorge.com/files/21f1be3b7547e60eb4319cdb3a4f6b46.png)"><a title='søk i produkter - booking'><span>søk i produkter - booking</span></a><ul class='level2'><li><a href="/bestill-produkt"><span>Booking</span></a></li><li><a href="/no/produkter-arrangementer"><span>Finn et produkt</span></a></li><li><a href="/planlegg-din-reise"><span>Reiseplanlegger</span></a></li><li><a href="/brosjyrer"><span>Brosjyrer</span></a></li><li><a href="/nyttige-linker"><span>Nyttige linker</span></a></li></ul></li>
+</ul></div></div></div>
+			
+		</div>	
+	
+		<div style='height:9px; font-size:9px; background-image:url(/sites/n/nordnorge.com/designs/Book_Norway/images/tabletop.png); background-repeat:no-repeat;'>&nbsp;</div>
+		<div style='overflow-x:hidden; background-image:url(/sites/n/nordnorge.com/designs/Book_Norway/images/tablemid.png); background-repeat:repeat;'>
+			<div style='text-align:left; padding:0px 29px 20px 26px;'>
+
+				<div style='display: inline;' id='WIPSMAINCONTENTS' ></div>
+				<div id="citybreak_multi_searchform_widget"></div>
+				<div id="cb_init_bookingengine">Online3 goes here</div>
+
+				<div style='clear:both;'></div>
+
+				<div class='footer'>
+					<!-- <a style='position:relative; top:-65px; left:45px; display:block; width:100px; height:25px;' target=_blank href='http://www.seria.no'>&nbsp;</a> -->
+	
+					<a class='footer_logo' href=""><img src="/sites/n/nordnorge.com/files/02ba2a19d4376f8d08e9cf0b9d025464.png" alt=""  /></a>
+	
+					<div class='front_text_footer'  > 
+						<p class="orange"><strong><br /><br /><br /><br /><a href="http://bransje.nordnorge.com" style="font-size: 14px;">Bransjenett</a>&nbsp;&nbsp; &nbsp;|&nbsp;&nbsp;&nbsp; <a href="http://foto.nordnorge.com" style="font-size: 14px;">Fotobank</a>&nbsp;&nbsp;&nbsp; | &nbsp; &nbsp;<a href="/ansatte" style="font-size: 14px;">Kontakt oss</a><a href="http://www.visitnorway.com"><img alt="Visit Norway .com" height="59" src="/sites/n/nordnorge.com/files/42120bac6344cf97c8fe6fccae5b4ca8.png?resize=89x59" style="float: right;" width="89" /></a></strong></p>
+<table border="0" cellspacing="60" style="width: 600px; height: 20px; color: #777777; font-size: 10px;">
+<tbody>
+<tr>
+<td><strong>NordNorsk Reiseliv as</strong><br /><span>Telefon: +47 901 77 500</span><br /><span>Epost:&nbsp;</span><a href="mailto:post@nordnorge.com">post@nordnorge.com</a></td>
+<td><strong>Avdeling Bod&oslash;</strong><br />Tollbugata 13, Bod&oslash;<br /> P.O.Box 434, 8001 Bod&oslash;</td>
+<td><strong>Avdeling Troms&oslash;<br /></strong>Storgata 69, Troms&oslash;<br />P.O.Box 23, 9251 Troms&oslash;<br /><br /></td>
+<td><strong>Avdeling Alta<br /></strong>Markedsgata 3<br />P.O.Box 1163, 9504 Alta<br /><br /></td>
+</tr>
+</tbody>
+</table>
+<p class="vanlig"></p>
+<p class="vanlig"><a href="/ansatte">&nbsp;</a></p>
+					</div>
+					<div style='clear:both;'></div>
+				</div>
+			</div>
+		</div>
+		<div style='height:9px; font-size:9px; background-image:url(/sites/n/nordnorge.com/designs/Book_Norway/images/tablebot.png); background-position:left bottom; background-repeat:no-repeat;'>&nbsp;</div>
+	</div>
+</div>
+<script type="text/css" src="/sites/n/nordnorge.com/designs/Book_Norway/js/jquery.qtip/jquery.qtip.min.js"></script>
+<script type="text/css" src="/sites/n/nordnorge.com/designs/Book_Norway/js/jquery.url.js"></script>
+<script type="text/css" src="/sites/n/nordnorge.com/designs/Book_Norway/js/News.readmore.js?1355492778"></script>
+<script type="text/javascript">
+//<![CDATA[
+	(function() {
+		var widget = document.createElement('script'); widget.type = 'text/javascript'; widget.async = true;
+		widget.src = 'http://booking.visitnorway.com/no/accommodationwidget/searchform';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(widget, s);
+	})();
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+<!--
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+-->
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+<!--
+var pageTracker = _gat._getTracker("UA-23260084-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+-->
+//]]>
+</script>
+
+<div style='display: inline; display: inline;' id='WIPSELEMENT_FLOATINGMENU'></div>
+<script type='text/javascript' src='/js/aX.js'></script><script type='text/javascript' src='/js/ajax.js'></script></body>
+</html>
